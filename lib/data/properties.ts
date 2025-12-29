@@ -1,13 +1,9 @@
-const formatAddressSlug = (chunks) =>
-  chunks
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+import { Property, PropertyFilters } from "@/lib/types/property";
+import { formatAddressSlug } from "@/lib/utils";
 
-// Property mock data
-export const properties = [
+type PropertySeed = Omit<Property, "addressSlug"> & { addressSlug?: string };
+
+const propertySeed: PropertySeed[] = [
   {
     id: 1,
     title: "Modern Downtown Loft",
@@ -56,7 +52,7 @@ export const properties = [
       neighborhood: "Riverside",
       latitude: 41.8316,
       longitude: -87.8237,
-      full: "1180 Riverside Dr, Riverside, IL 60546",
+      full: "1180 S Riverside Dr, Riverside, IL 60546",
     },
   },
   {
@@ -161,10 +157,12 @@ export const properties = [
       full: "233 Garden Ln Townhome 12, Oak Park, IL 60302",
     },
   },
-].map((property) => ({
+];
+
+export const properties: Property[] = propertySeed.map((property) => ({
   ...property,
   addressSlug:
-    property.addressSlug ||
+    property.addressSlug ??
     formatAddressSlug([
       property.address.street,
       property.address.unit,
@@ -174,105 +172,51 @@ export const properties = [
     ]),
 }));
 
-// Agent mock data
-export const agents = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    email: "sarah@realestategroup.com",
-    phone: "(555) 123-4567",
-    image: "/images/professional-woman-headshot.png",
-    bio: "Award-winning real estate agent with 15 years of experience in luxury properties.",
-    specialty: "Luxury Homes & Penthouses",
-    listings: [1, 3],
-  },
-  {
-    id: 2,
-    name: "Michael Chen",
-    email: "michael@realestategroup.com",
-    phone: "(555) 234-5678",
-    image: "/images/professional-man-headshot.png",
-    bio: "Specializing in family homes and suburban properties with a focus on value.",
-    specialty: "Family Homes",
-    listings: [2, 5],
-  },
-  {
-    id: 3,
-    name: "Emma Rodriguez",
-    email: "emma@realestategroup.com",
-    phone: "(555) 345-6789",
-    image: "/images/professional-woman-headshot-latin.jpg",
-    bio: "Young agent with expertise in urban apartments and starter homes.",
-    specialty: "Urban Properties",
-    listings: [4, 6],
-  },
-];
+export const getPropertyById = (id: number | string) =>
+  properties.find((property) => property.id === Number.parseInt(String(id)));
 
-// Get property by ID
-export function getPropertyById(id) {
-  return properties.find((p) => p.id === Number.parseInt(id));
-}
+export const getPropertyByAddressSlug = (slug: string) =>
+  properties.find((property) => property.addressSlug === slug);
 
-// Get property by address slug
-export function getPropertyByAddressSlug(slug) {
-  return properties.find((p) => p.addressSlug === slug);
-}
+export const getFeaturedProperties = () =>
+  properties.filter((property) => property.featured);
 
-// Get featured properties
-export function getFeaturedProperties() {
-  return properties.filter((p) => p.featured);
-}
+export const filterProperties = (filters: PropertyFilters) => {
+  const {
+    searchTerm,
+    priceRange = [0, Number.MAX_SAFE_INTEGER],
+    propertyType = "all",
+    bedrooms = "all",
+  } = filters;
 
-// Get agent by ID
-export function getAgentById(id) {
-  return agents.find((a) => a.id === Number.parseInt(id));
-}
-
-// Get all properties for an agent
-export function getAgentProperties(agentId) {
-  return properties.filter((p) => p.agent === agentId);
-}
-
-// Filter properties based on given filters
-export function filterProperties(filters) {
   return properties.filter((property) => {
-    // Check search term
     if (
-      filters.searchTerm &&
-      !property.title
-        .toLowerCase()
-        .includes(filters.searchTerm.toLowerCase()) &&
-      !property.location
-        .toLowerCase()
-        .includes(filters.searchTerm.toLowerCase())
+      searchTerm &&
+      !property.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      !property.location.toLowerCase().includes(searchTerm.toLowerCase())
     ) {
       return false;
     }
 
-    // Check price range
     if (
-      property.price < filters.priceRange[0] ||
-      property.price > filters.priceRange[1]
+      property.price < priceRange[0] ||
+      property.price > priceRange[1]
     ) {
       return false;
     }
 
-    // Check property type
-    if (
-      filters.propertyType !== "all" &&
-      property.type !== filters.propertyType
-    ) {
+    if (propertyType !== "all" && property.type !== propertyType) {
       return false;
     }
 
-    // Check bedrooms
-    if (filters.bedrooms !== "all") {
-      const minBedrooms = Number.parseInt(filters.bedrooms);
-      if (property.bedrooms < minBedrooms) {
+    if (bedrooms !== "all") {
+      const minBedrooms = Number.parseInt(bedrooms, 10);
+      if (Number.isFinite(minBedrooms) && property.bedrooms < minBedrooms) {
         return false;
       }
     }
 
     return true;
   });
-}
+};
+

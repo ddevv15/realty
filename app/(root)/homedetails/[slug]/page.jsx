@@ -3,13 +3,12 @@ import Link from "next/link";
 import { getPropertyByAddressSlug, getAgentById } from "@/lib/mock-data";
 import { PropertyGallery } from "@/components/property-gallery";
 import { AgentCard } from "@/components/agent-card";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
-export default async function PropertyPage({ params }) {
+export default async function PropertyPage({ params, searchParams }) {
   const { slug } = await params;
+  const resolvedSearchParams = await searchParams;
   const property = getPropertyByAddressSlug(slug);
 
   if (!property) {
@@ -18,18 +17,29 @@ export default async function PropertyPage({ params }) {
 
   const agent = getAgentById(property.agent);
 
+  // Determine back button destination based on where user came from
+  const from = resolvedSearchParams?.from;
+  let backHref = "/";
+  let backText = "Back to Properties";
+
+  if (from === "buy") {
+    backHref = "/buy";
+    backText = "← Back to Buy";
+  } else if (from === "rent") {
+    backHref = "/rent";
+    backText = "← Back to Rent";
+  }
+
   return (
     <>
-      <Header />
-
       <main className="min-h-screen bg-background">
         <div className="max-w-6xl mx-auto px-4 py-8">
           {/* Back Button */}
           <Link
-            href="/"
+            href={backHref}
             className="text-primary hover:text-primary/80 transition-colors mb-6 inline-flex items-center gap-2"
           >
-            ← Back to Properties
+            {backText}
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
@@ -192,8 +202,6 @@ export default async function PropertyPage({ params }) {
           </div>
         </div>
       </main>
-
-      <Footer />
     </>
   );
 }

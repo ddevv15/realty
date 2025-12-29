@@ -1,27 +1,29 @@
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { ContactForm } from "@/components/contact-form"
-import { Card } from "@/components/ui/card"
-import Link from "next/link"
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { ContactForm } from "@/components/contact-form";
+import { Card } from "@/components/ui/card";
+import Link from "next/link";
 
 export const metadata = {
   title: "Contact Us - Elite Realty",
-  description: "Get in touch with Elite Realty. We're here to help with your real estate needs.",
-}
+  description:
+    "Get in touch with Elite Realty. We're here to help with your real estate needs.",
+};
 
 export default function ContactPage() {
   return (
     <>
-      <Header />
-
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
         <section className="w-full py-12 md:py-20 bg-gradient-to-br from-primary/10 to-accent/10">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Get in Touch</h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+                Get in Touch
+              </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Have questions about a property or our services? We're here to help. Reach out to our team today.
+                Have questions about a property or our services? We're here to
+                help. Reach out to our team today.
               </p>
             </div>
           </div>
@@ -34,7 +36,12 @@ export default function ContactPage() {
               {/* Contact Info Cards */}
               <Card className="p-6 text-center">
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-6 h-6 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -54,7 +61,12 @@ export default function ContactPage() {
 
               <Card className="p-6 text-center">
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-6 h-6 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -64,14 +76,22 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <h3 className="font-semibold text-foreground mb-2">Phone</h3>
-                <a href="tel:+15551234567" className="text-primary hover:text-primary/80 transition-colors">
+                <a
+                  href="tel:+15551234567"
+                  className="text-primary hover:text-primary/80 transition-colors"
+                >
                   (555) 123-4567
                 </a>
               </Card>
 
               <Card className="p-6 text-center">
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-6 h-6 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -95,9 +115,12 @@ export default function ContactPage() {
         {/* CTA Section */}
         <section className="w-full py-12 md:py-16 bg-primary/5">
           <div className="max-w-6xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Looking for Properties?</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Looking for Properties?
+            </h2>
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Browse our current listings or schedule a viewing with one of our expert agents.
+              Browse our current listings or schedule a viewing with one of our
+              expert agents.
             </p>
             <Link href="/">
               <button className="px-8 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity font-semibold">
@@ -107,8 +130,6 @@ export default function ContactPage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </>
-  )
+  );
 }

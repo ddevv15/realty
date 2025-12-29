@@ -5,7 +5,7 @@ export function AgentCard({ agent }) {
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       <div className="p-6 flex flex-col items-center text-center">
         <div className="w-24 h-24 rounded-full overflow-hidden bg-muted mb-4">
-          <img src={agent.image || "/placeholder.svg"} alt={agent.name} className="w-full h-full object-cover" />
+          <img src={agent.image || "/images/placeholder.svg"} alt={agent.name} className="w-full h-full object-cover" />
         </div>
         <h3 className="text-xl font-semibold text-foreground mb-1">{agent.name}</h3>
         <p className="text-sm text-accent font-semibold mb-3">{agent.specialty}</p>

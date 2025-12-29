@@ -7,7 +7,7 @@ export function PropertyCard({ property }) {
       <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full flex flex-col">
         <div className="relative w-full h-48 bg-muted overflow-hidden">
           <img
-            src={property.image || "/placeholder.svg"}
+            src={property.image || "/images/placeholder.svg"}
             alt={property.title}
             className="w-full h-full object-cover hover:scale-105 transition-transform"
           />

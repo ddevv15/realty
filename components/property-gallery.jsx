@@ -5,13 +5,13 @@ import { useState } from "react"
 export function PropertyGallery({ images = [] }) {
   const [activeImage, setActiveImage] = useState(0)
 
-  const galleryImages = images.length > 0 ? images : ["/placeholder.svg?key=property1"]
+  const galleryImages = images.length > 0 ? images : ["/images/placeholder.svg?key=property1"]
 
   return (
     <div className="space-y-4">
       <div className="w-full aspect-video rounded-lg overflow-hidden bg-muted">
         <img
-          src={galleryImages[activeImage] || "/placeholder.svg"}
+          src={galleryImages[activeImage] || "/images/placeholder.svg"}
           alt="Property"
           className="w-full h-full object-cover"
         />
@@ -27,7 +27,7 @@ export function PropertyGallery({ images = [] }) {
               }`}
             >
               <img
-                src={image || "/placeholder.svg"}
+                src={image || "/images/placeholder.svg"}
                 alt={`Thumbnail ${index + 1}`}
                 className="w-full h-full object-cover"
               />
